@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:todoey_flutter/Widgets/tasks_list.dart';
+
+List<String> tasks = ["Task 1", "Task 2"];
 
 class TasksScreen extends StatelessWidget {
   const TasksScreen({Key key}) : super(key: key);
@@ -7,6 +10,14 @@ class TasksScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.lightBlueAccent,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.lightBlueAccent,
+        child: Icon(
+          Icons.add,
+          size: 40,
+        ),
+        onPressed: () {},
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -42,14 +53,15 @@ class TasksScreen extends StatelessWidget {
           ),
           Expanded(
             child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(20),
-                  topLeft: Radius.circular(20),
+                padding: EdgeInsets.symmetric(horizontal: 30),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(20),
+                    topLeft: Radius.circular(20),
+                  ),
                 ),
-              ),
-            ),
+                child: TasksList()),
           )
         ],
       ),
