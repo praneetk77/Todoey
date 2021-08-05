@@ -36,13 +36,7 @@ class _TasksScreenState extends State<TasksScreen> {
         onPressed: () {
           showModalBottomSheet(
             context: context,
-            builder: (context) => AddTaskScreen(
-              addTaskCallback: (Task newTask) {
-                setState(() {
-                  tasks.add(newTask);
-                });
-              },
-            ),
+            builder: (context) => AddTaskScreen(),
           );
         },
       ),
@@ -73,7 +67,8 @@ class _TasksScreenState extends State<TasksScreen> {
                       color: Colors.white),
                 ),
                 Text(
-                  Provider.of<TaskData>(context).tasks.length.toString() + " Tasks",
+                  Provider.of<TaskData>(context).getTaskCount().toString() +
+                      " Tasks",
                   style: TextStyle(color: Colors.white, fontSize: 18),
                 ),
               ],
