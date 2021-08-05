@@ -1,11 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:todoey_flutter/Models/task.dart';
 import 'package:todoey_flutter/Widgets/tasks_list.dart';
 import 'package:todoey_flutter/Screens/add_task_screen.dart';
 
 List<String> tasks = ["Task 1", "Task 2"];
 
-class TasksScreen extends StatelessWidget {
+class TasksScreen extends StatefulWidget {
   const TasksScreen({Key key}) : super(key: key);
+
+  @override
+  _TasksScreenState createState() => _TasksScreenState();
+}
+
+class _TasksScreenState extends State<TasksScreen> {
+  List<Task> tasks = [
+    Task(name: "Buy milk", isDone: false),
+    Task(name: "Buy eggs", isDone: false),
+    Task(name: "Buy bacon", isDone: false),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +31,15 @@ class TasksScreen extends StatelessWidget {
         ),
         onPressed: () {
           showModalBottomSheet(
-              context: context, builder: (context) => AddTaskScreen());
+            context: context,
+            builder: (context) => AddTaskScreen(
+              addTaskCallback: (Task newTask) {
+                setState(() {
+                  tasks.add(newTask);
+                });
+              },
+            ),
+          );
         },
       ),
       body: Column(
@@ -49,7 +69,7 @@ class TasksScreen extends StatelessWidget {
                       color: Colors.white),
                 ),
                 Text(
-                  "12 Tasks",
+                  tasks.length.toString() + " Tasks",
                   style: TextStyle(color: Colors.white, fontSize: 18),
                 ),
               ],
@@ -57,15 +77,23 @@ class TasksScreen extends StatelessWidget {
           ),
           Expanded(
             child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 30),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(20),
-                    topLeft: Radius.circular(20),
-                  ),
+              padding: EdgeInsets.symmetric(horizontal: 30),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(20),
+                  topLeft: Radius.circular(20),
                 ),
-                child: TasksList()),
+              ),
+              child: TasksList(
+                tasks: tasks,
+                checkBoxCallback: (bool checkBoxState, int index) {
+                  setState(() {
+                    tasks[index].toggleDone();
+                  });
+                },
+              ),
+            ),
           )
         ],
       ),
