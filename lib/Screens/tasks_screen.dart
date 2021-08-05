@@ -1,7 +1,11 @@
+// import 'dart:js';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todoey_flutter/Models/task.dart';
 import 'package:todoey_flutter/Widgets/tasks_list.dart';
 import 'package:todoey_flutter/Screens/add_task_screen.dart';
+import 'package:todoey_flutter/main.dart';
 
 List<String> tasks = ["Task 1", "Task 2"];
 
@@ -69,7 +73,7 @@ class _TasksScreenState extends State<TasksScreen> {
                       color: Colors.white),
                 ),
                 Text(
-                  tasks.length.toString() + " Tasks",
+                  Provider.of<TaskData>(context).tasks.length.toString() + " Tasks",
                   style: TextStyle(color: Colors.white, fontSize: 18),
                 ),
               ],
@@ -85,14 +89,7 @@ class _TasksScreenState extends State<TasksScreen> {
                   topLeft: Radius.circular(20),
                 ),
               ),
-              child: TasksList(
-                tasks: tasks,
-                checkBoxCallback: (bool checkBoxState, int index) {
-                  setState(() {
-                    tasks[index].toggleDone();
-                  });
-                },
-              ),
+              child: TasksList(),
             ),
           )
         ],
