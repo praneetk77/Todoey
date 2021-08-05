@@ -29,6 +29,9 @@ class _TasksListState extends State<TasksList> {
               checkBoxCallback: (newValue) {
                 taskData.updateTask(currentTask);
               },
+              onHoldCallback: () {
+                taskData.removeTask(currentTask);
+              },
             );
           },
           itemCount: taskData.getTaskCount(),
