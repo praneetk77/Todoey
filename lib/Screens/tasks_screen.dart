@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todoey_flutter/Widgets/tasks_list.dart';
+import 'package:todoey_flutter/Screens/add_task_screen.dart';
 
 List<String> tasks = ["Task 1", "Task 2"];
 
@@ -16,7 +17,10 @@ class TasksScreen extends StatelessWidget {
           Icons.add,
           size: 40,
         ),
-        onPressed: () {},
+        onPressed: () {
+          showModalBottomSheet(
+              context: context, builder: (context) => AddTaskScreen());
+        },
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
